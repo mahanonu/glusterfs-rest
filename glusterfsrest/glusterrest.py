@@ -45,7 +45,7 @@ def set_port(value):
     with open(PORT_FILE, "w") as f:
         f.write(str(value))
 
-    os.chmod(PORT_FILE, 0700)
+    os.chmod(PORT_FILE, 700)
     sys.stdout.write("Port updated successfully, "
                      "Restart glusterrestd to use the latest port\n")
     return 0
@@ -91,12 +91,12 @@ def main_i():
     ret = 0
     if args.subcommand == 'install':
         ret = users.install()
-        os.chmod(USERS_DB, 0700)
-        os.chmod(PORT_FILE, 0700)
+        os.chmod(USERS_DB, 700)
+        os.chmod(PORT_FILE, 700)
     elif args.subcommand == 'reinstall':
         ret = users.reinstall()
-        os.chmod(USERS_DB, 0700)
-        os.chmod(PORT_FILE, 0700)
+        os.chmod(USERS_DB, 700)
+        os.chmod(PORT_FILE, 700)
     elif args.subcommand == 'show':
         ret = globals()["show_%s" % args.option]()
     elif args.subcommand == 'port':
