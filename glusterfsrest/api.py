@@ -23,7 +23,6 @@ def showdoc(version):
 
 
 @app.route("/api/<float:version>/volume/<string:name>", methods=["POST"])
-#@requires_auth(['glusterroot', 'glusteradmin'])
 def volume_create(version, name):
     bricks_str = get_post_data('bricks', '')
     bricks = [b.strip() for b in bricks_str.split(",")]
@@ -38,7 +37,6 @@ def volume_create(version, name):
 
 
 @app.route("/api/<float:version>/volume/<string:name>", methods=["DELETE"])
-#@requires_auth(['glusterroot'])
 def volume_delete(version, name):
     stop = get_post_data('stop', False)
     return run_and_response(volume.delete, [name, stop])
@@ -46,7 +44,6 @@ def volume_delete(version, name):
 
 @app.route("/api/<float:version>/volume/<string:name>/start",
            methods=["PUT"])
-#@requires_auth(['glusterroot', 'glusteradmin'])
 def volume_start(version, name):
     force = get_post_data('force', False)
     return run_and_response(volume.start, [name, force])
@@ -54,7 +51,6 @@ def volume_start(version, name):
 
 @app.route("/api/<float:version>/volume/<string:name>/stop",
            methods=["PUT"])
-#@requires_auth(['glusterroot', 'glusteradmin'])
 def volume_stop(version, name):
     force = get_post_data('force', False)
     return run_and_response(volume.stop, [name, force])
@@ -62,37 +58,31 @@ def volume_stop(version, name):
 
 @app.route("/api/<float:version>/volume/<string:name>/restart",
            methods=["PUT"])
-#@requires_auth(['glusterroot', 'glusteradmin'])
 def volume_restart(version, name):
     return run_and_response(volume.restart, [name])
 
 
 @app.route("/api/<float:version>/volumes", methods=["GET"])
-#@requires_auth(['glusterroot', 'glusteradmin', 'glusteruser'])
 def volumes_get(version):
     return run_and_response(volume.info, [])
 
 
 @app.route("/api/<float:version>/volume/<string:name>", methods=["GET"])
-#@requires_auth(['glusterroot', 'glusteradmin', 'glusteruser'])
 def volume_get(version, name):
     return run_and_response(volume.info, [name])
 
 
 @app.route("/api/<float:version>/peers", methods=["GET"])
-#@requires_auth(['glusterroot', 'glusteradmin', 'glusteruser'])
 def peers_get(version):
     return run_and_response(peer.info, [])
 
 
 @app.route("/api/<float:version>/peer/<string:hostname>", methods=["POST"])
-#@requires_auth(['glusterroot', 'glusteradmin'])
 def peer_create(version, hostname):
     return run_and_response(peer.attach, [hostname])
 
 
 @app.route("/api/<float:version>/peer/<string:hostname>", methods=["DELETE"])
-#@requires_auth(['glusterroot'])
 def peer_delete(version, hostname):
     force = get_post_data('force', False)
     return run_and_response(peer.detach, [hostname, force])
