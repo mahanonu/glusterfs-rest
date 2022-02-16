@@ -27,7 +27,7 @@ def showdoc(version):
 def volume_create(version, name):
     bricks_str = get_post_data('bricks', '')
     bricks = [b.strip() for b in bricks_str.split(",")]
-    replica = get_post_data('replica', 0)
+    replica = int(get_post_data('replica', 0))
     stripe = get_post_data('stripe', 0)
     transport = get_post_data('transport', 'tcp').lower()
     force = get_post_data('force', False)
